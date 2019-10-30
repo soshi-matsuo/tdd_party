@@ -27,6 +27,14 @@ describe('Game of Life', () => {
 		let cellIdx = 12;
 		global.expect(lifegame.willDie(cellIdx, board)).to.equal(false);
 	});
+	it('judge willDie to dead cell', () => {
+		let board = '..*.....' +
+					'....*...' +
+					'...**...' +
+					'........';
+		let cellIdx = 31;
+		global.expect(lifegame.willDie(cellIdx, board)).to.equal(false);
+	});
 	it('judge give birth', () => {
 		let board = '........' +
 					'....*...' +
@@ -34,5 +42,27 @@ describe('Game of Life', () => {
 					'........';
 		let cellIdx = 11;
 		global.expect(lifegame.givingBirth(cellIdx, board)).to.equal(true);
+	});
+	it('generate next board', () => {
+		let board = '........' +
+					'....*...' +
+					'...**...' +
+					'........';
+		let expectedBoard = '........' +
+							'...**...' +
+							'...**...' +
+							'........';
+		global.expect(lifegame.generateBoard(board)).to.equal(expectedBoard);
+	});
+	it('generate greatgrandson', () => {
+		let board = '........' +
+					'....*...' +
+					'...**...' +
+					'........';
+		let greatgrandson = '........' +
+							'...**...' +
+							'...**...' +
+							'........';
+		global.expect(lifegame.play(board, 3)).to.equal(greatgrandson);
 	});
 });

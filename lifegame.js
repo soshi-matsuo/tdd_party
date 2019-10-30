@@ -2,7 +2,9 @@
 
 module.exports = {
 	willDie,
-	givingBirth
+	givingBirth,
+	generateBoard,
+	play
 };
 
 function isAlive(cell) {
@@ -61,4 +63,37 @@ function givingBirth(cellIdx, board){
 	}
 
 	return false;
+}
+
+function generateBoard(board) {
+	let nextBoard = '';
+
+	for (let i=0; i < board.length; i++) {
+		if(willDie(i, board)){
+			nextBoard += '.';
+			continue;
+		} 
+		
+		if(givingBirth(i, board)){
+			nextBoard += '*';
+			continue;
+		}
+
+		nextBoard += board[i];
+	}
+
+	return nextBoard;
+}
+
+function play(board, num){
+
+	let result = [];
+
+	result.push(board);
+
+	for(let i=0; i < num; i++){
+		result.push(generateBoard(result[result.length - 1]));
+	}
+
+	return result[result.length -1];
 }
